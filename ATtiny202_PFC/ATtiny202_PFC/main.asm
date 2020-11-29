@@ -1,4 +1,4 @@
-; Filename	:ATtiny202_PFC.asm
+; Project name	:ATtiny202_PFC.asm
 ; Author	:KKT
 ; Date		:2020/10/11
 ; Device	:ATtiny202-SSNR
@@ -165,26 +165,25 @@ RESET:
     STDI Z + TCA_SINGLE_CTRLA_offset, (TCA_SPLIT_CLKSEL_DIV1_gc | TCA_SPLIT_ENABLE_bm)
 
     ; VREF Config
-    OUTI VREF_CTRLA, (0x14)
-    ;OUTI VREF_CTRLA, (0x04)
+    OUTI VREF_CTRLA, 0x14
 
     ; AC0 Config
     LDIW ZL, ZH, AC0_base
-    ;STDI Z + AC_MUXCTRLA_offset, (0x02)
-    ;STDI Z + AC_CTRLA_offset, (0x07)
+    ;STDI Z + AC_MUXCTRLA_offset, 0x02
+    ;STDI Z + AC_CTRLA_offset, 0x07
 
     ; ADC0 Config
     LDIW ZL, ZH, ADC0_base
-    STDI Z + ADC_CALIB_offset, (0x00)
-    STDI Z + ADC_INTCTRL_offset, (0x01)
-    STDI Z + ADC_EVCTRL_offset, (0x01)
-    STDI Z + ADC_MUXPOS_offset, (0x07)
-    STDI Z + ADC_SAMPCTRL_offset, (0x00)
-    STDI Z + ADC_CTRLE_offset, (0x00)
-    STDI Z + ADC_CTRLD_offset, (0x00)
-    STDI Z + ADC_CTRLC_offset, (0x42)
-    STDI Z + ADC_CTRLB_offset, (0x00)
-    STDI Z + ADC_CTRLA_offset, (0x05)
+    STDI Z + ADC_CALIB_offset, 0x00
+    STDI Z + ADC_INTCTRL_offset, 0x01
+    STDI Z + ADC_EVCTRL_offset, 0x01
+    STDI Z + ADC_MUXPOS_offset, 0x07
+    STDI Z + ADC_SAMPCTRL_offset, 0x00
+    STDI Z + ADC_CTRLE_offset, 0x00
+    STDI Z + ADC_CTRLD_offset, 0x00
+    STDI Z + ADC_CTRLC_offset, 0x42
+    STDI Z + ADC_CTRLB_offset, 0x00
+    STDI Z + ADC_CTRLA_offset, 0x05
 
     ; EVSYS Config
     OUTI EVSYS_SYNCCH0, 0x06
@@ -204,8 +203,6 @@ RESET:
 
     SEI
 
-; PA6:LED dbg
-; PA1:DBG
 MAIN:
     BST R_FLAG, 0
     BRTC MAIN
@@ -316,7 +313,8 @@ LL_ADC_RESRDY_END:
     RETI
 
 ; YH:YL->Pointer for param
-; W0:PV
+; W0->PV
+; W[1:0]->MV
 S_GET_PI_MV:
     LDD W2, Y + 0; SV
     SUBSAT W2, W0; W2 = SV - PV

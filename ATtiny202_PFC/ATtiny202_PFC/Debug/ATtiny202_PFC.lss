@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  G:\git\ATtiny202_PFC\ATtiny202_PFC\ATtiny202_PFC\main.asm Sun Nov 29 22:07:38 2020
+AVRASM ver. 2.2.7  G:\git\ATtiny202_PFC\ATtiny202_PFC\ATtiny202_PFC\main.asm Sun Nov 29 22:38:18 2020
 
 [builtin](2): Including file 'E:/Programfiles\Atmel\Studio\7.0\Packs\Atmel\ATtiny_DFP\1.6.326\avrasm\inc\tn202def.inc'
 G:\git\ATtiny202_PFC\ATtiny202_PFC\ATtiny202_PFC\main.asm(9): Including file 'E:/Programfiles\Atmel\Studio\7.0\Packs\Atmel\ATtiny_DFP\1.6.326\avrasm\inc\tn202def.inc'
@@ -8,7 +8,7 @@ G:\git\ATtiny202_PFC\ATtiny202_PFC\ATtiny202_PFC\main.asm(10): Including file 'G
 G:\git\ATtiny202_PFC\ATtiny202_PFC\ATtiny202_PFC\main.asm(9): Including file 'E:/Programfiles\Atmel\Studio\7.0\Packs\Atmel\ATtiny_DFP\1.6.326\avrasm\inc\tn202def.inc'
 G:\git\ATtiny202_PFC\ATtiny202_PFC\ATtiny202_PFC\main.asm(10): Including file 'G:\git\ATtiny202_PFC\ATtiny202_PFC\ATtiny202_PFC\mymacro.inc'
                                  
-                                 ; Filename	:ATtiny202_PFC.asm
+                                 ; Project name	:ATtiny202_PFC.asm
                                  
                                  
                                  ;*************************************************************************
@@ -4203,38 +4203,37 @@ G:\git\ATtiny202_PFC\ATtiny202_PFC\ATtiny202_PFC\main.asm(10): Including file 'G
                                  
                                      ; VREF Config
 000052 e104
-000053 9300 00a0                     OUTI VREF_CTRLA, (0x14)
-                                     ;OUTI VREF_CTRLA, (0x04)
+000053 9300 00a0                     OUTI VREF_CTRLA, 0x14
                                  
                                      ; AC0 Config
 000055 e7e0
 000056 e0f6                          LDIW ZL, ZH, AC0_base
-                                     ;STDI Z + AC_MUXCTRLA_offset, (0x02)
-                                     ;STDI Z + AC_CTRLA_offset, (0x07)
+                                     ;STDI Z + AC_MUXCTRLA_offset, 0x02
+                                     ;STDI Z + AC_CTRLA_offset, 0x07
                                  
                                      ; ADC0 Config
 000057 e0e0
 000058 e0f6                          LDIW ZL, ZH, ADC0_base
 000059 e000
-00005a 8b06                          STDI Z + ADC_CALIB_offset, (0x00)
+00005a 8b06                          STDI Z + ADC_CALIB_offset, 0x00
 00005b e001
-00005c 8702                          STDI Z + ADC_INTCTRL_offset, (0x01)
+00005c 8702                          STDI Z + ADC_INTCTRL_offset, 0x01
 00005d e001
-00005e 8701                          STDI Z + ADC_EVCTRL_offset, (0x01)
+00005e 8701                          STDI Z + ADC_EVCTRL_offset, 0x01
 00005f e007
-000060 8306                          STDI Z + ADC_MUXPOS_offset, (0x07)
+000060 8306                          STDI Z + ADC_MUXPOS_offset, 0x07
 000061 e000
-000062 8305                          STDI Z + ADC_SAMPCTRL_offset, (0x00)
+000062 8305                          STDI Z + ADC_SAMPCTRL_offset, 0x00
 000063 e000
-000064 8304                          STDI Z + ADC_CTRLE_offset, (0x00)
+000064 8304                          STDI Z + ADC_CTRLE_offset, 0x00
 000065 e000
-000066 8303                          STDI Z + ADC_CTRLD_offset, (0x00)
+000066 8303                          STDI Z + ADC_CTRLD_offset, 0x00
 000067 e402
-000068 8302                          STDI Z + ADC_CTRLC_offset, (0x42)
+000068 8302                          STDI Z + ADC_CTRLC_offset, 0x42
 000069 e000
-00006a 8301                          STDI Z + ADC_CTRLB_offset, (0x00)
+00006a 8301                          STDI Z + ADC_CTRLB_offset, 0x00
 00006b e005
-00006c 8300                          STDI Z + ADC_CTRLA_offset, (0x05)
+00006c 8300                          STDI Z + ADC_CTRLA_offset, 0x05
                                  
                                      ; EVSYS Config
 00006d e006
@@ -4262,8 +4261,6 @@ G:\git\ATtiny202_PFC\ATtiny202_PFC\ATtiny202_PFC\main.asm(10): Including file 'G
                                  
 000087 9478                          SEI
                                  
-                                 ; PA6:LED dbg
-                                 ; PA1:DBG
                                  MAIN:
 000088 fb90                          BST R_FLAG, 0
 000089 f7f6                          BRTC MAIN
@@ -4382,7 +4379,8 @@ G:\git\ATtiny202_PFC\ATtiny202_PFC\ATtiny202_PFC\main.asm(10): Including file 'G
 0000f2 9518                          RETI
                                  
                                  ; YH:YL->Pointer for param
-                                 ; W0:PV
+                                 ; W0->PV
+                                 ; W[1:0]->MV
                                  S_GET_PI_MV:
 0000f3 8128                          LDD W2, Y + 0; SV
 0000f4 1b20
